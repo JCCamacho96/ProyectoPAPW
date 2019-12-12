@@ -32,7 +32,7 @@ public class GetImageArticulo extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Articulo articulo = null;
-        articulo = Articulo.consultaArticulos(1, Integer.parseInt(request.getParameter("idArticulo"))).get(0);
+        articulo = Articulo.consultaArticulos(1, Integer.parseInt(request.getParameter("idArticulo")), "", "", "").get(0);
         byte[] image = null;
         switch(request.getParameter("image")) {
             case "image1": {

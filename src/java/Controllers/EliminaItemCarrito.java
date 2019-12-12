@@ -30,7 +30,11 @@ public class EliminaItemCarrito extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (CarritoCompra.borraItemCarrito(Integer.parseInt(request.getParameter("idU")), Integer.parseInt(request.getParameter("idA")))) {
+        int idArticulo = 0;
+        if(request.getParameter("idA") != null && !request.getParameter("idA").equals("")) {
+            idArticulo = Integer.parseInt(request.getParameter("idA"));
+        }
+        if (CarritoCompra.borraItemCarrito(Integer.parseInt(request.getParameter("idU")), idArticulo)) {
             response.sendRedirect("carritoCompras.jsp");
         } else {
             response.sendRedirect("carritoCompras.jsp");

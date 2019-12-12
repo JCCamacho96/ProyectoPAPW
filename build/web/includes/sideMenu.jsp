@@ -26,10 +26,20 @@
     sbl.append("<li><a href='carritoCompras.jsp'><i class='fa fa-shopping-cart'></i>")
             .append("<span>Carrito Compras</span>")
             .append("</a></li>");
+    
+    sbl.append("<li><a href='historialCompras.jsp'><i class='fa fa-shopping-bag'></i>")
+            .append("<span>Historial Compras</span>")
+            .append("</a></li>");
 
     if (session.getAttribute("user").equals("Administrador")) {
         sbl.append("<li><a href='registraArticulos.jsp'><i class='fa fa-camera'></i>")
                 .append("<span>Registra Artículos</span>")
+                .append("</a></li>");
+    }
+    
+    if (session.getAttribute("user").equals("Administrador")) {
+        sbl.append("<li><a href='solicitudesPresupuesto.jsp'><i class='fa fa-money'></i>")
+                .append("<span>Solicitud Presupuesto</span>")
                 .append("</a></li>");
     }
 

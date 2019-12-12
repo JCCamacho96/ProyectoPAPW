@@ -35,8 +35,20 @@
     </head>
     <body class="nav-md">
         <%
+            String idCategoria = "";
+            if (request.getParameter("idc") != null && !request.getParameter("idc").equals("")) {
+                idCategoria = request.getParameter("idc");
+            }
+            String nombre = "";
+            if (request.getParameter("n") != null && !request.getParameter("n").equals("")) {
+                nombre = request.getParameter("n");
+            }
+            String descripcion = "";
+            if (request.getParameter("d") != null && !request.getParameter("d").equals("")) {
+                descripcion = request.getParameter("d");
+            }
             List<Categoria> categorias = Categoria.consultaCategorias();
-            List<Articulo> articulos = Articulo.consultaArticulos(1, 0);
+            List<Articulo> articulos = Articulo.consultaArticulos(1, 0, idCategoria, nombre, descripcion);
         %>
         <div class="container body">
             <div class="main_container">
@@ -44,13 +56,30 @@
 
                 <div class="right_col" role="main">
                     <div id="main-grid" class="col-md-2 col-sm-2 col-xs-2" style="padding: 5px; overflow-y: scroll; height: calc(100vh - 90px);">
-                        <h3>Filtros</h3>
-
+                        <h3>Filtros</h3>   
+                        <div class="item form-group">
+                            <select id="categoria" name="categoria" class="form-control">
+                                <option value="">Selecciona una categoria</option>
+                                <%                                for (Categoria categoria : categorias) {
+                                %>
+                                <option value="<%= categoria.getIdCategoria()%>"><%= categoria.getNombre()%></option>
+                                <%
+                                    }
+                                %>
+                            </select>
+                        </div>
+                        <div class="item form-group">
+                            <input type="text" id="nombre" class="form-control" placeholder="Nombre...">  
+                        </div>
+                        <div class="item form-group">
+                            <input type="text" id="descripcion" class="form-control" placeholder="Descripcion...">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="filtrar('index.jsp')">Filtrar</button>
                     </div>
                     <div class="col-md-10 col-sm-10 col-xs-10" style="overflow-y: scroll; height: calc(100vh - 90px);">
                         <h2>Los más vendidos</h2>
                         <div class="col-md-12">
-                            <%                            
+                            <%
                                 int i = 1;
                                 for (Articulo articulo : articulos) {
                                     if (i <= 4) {
@@ -135,5 +164,34 @@
         <script src="./vendors/starrr/dist/starrr.js"></script>
         <!-- Custom Theme Scripts -->
         <script src="./build/js/custom.js"></script>
+        <script>
+            function filtrar(stringURL) {
+                let i = 0;
+                let stringidc = "";
+                if($('#categoria').val() != "") {
+                    stringidc = "?idc=" + $('#categoria').val();
+                    i++;
+                }
+                let stringn = "";
+                if($('#nombre').val() != "") {
+                    if(i == 0) {
+                        stringn = "?n=" + $('#nombre').val();
+                        i++;
+                    } else {
+                        stringn = "&n=" + $('#nombre').val();
+                    }
+                }
+                let stringd = "";
+                if($('#descripcion').val() != "") {
+                    if(i == 0) {
+                        stringd = "?d=" + $('#descripcion').val();
+                        i++;
+                    } else {
+                        stringd = "&d=" + $('#descripcion').val();
+                    }
+                }
+                location.href = stringURL + stringidc + stringn + stringd;
+            }
+        </script>
     </body>
 </html>

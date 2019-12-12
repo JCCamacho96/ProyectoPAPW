@@ -40,6 +40,26 @@
         <servlet-name>EliminaItemCarrito</servlet-name>
         <servlet-class>Controllers.EliminaItemCarrito</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GeneraSolicitudPresupuesto</servlet-name>
+        <servlet-class>Controllers.GeneraSolicitudPresupuesto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaPrecioItemSolicitudPresupuesto</servlet-name>
+        <servlet-class>Controllers.ActualizaPrecioItemSolicitudPresupuesto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaEstatusSolicitudPresupuesto</servlet-name>
+        <servlet-class>Controllers.ActualizaEstatusSolicitudPresupuesto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActualizaCantidadItemSolicitudPresupuesto</servlet-name>
+        <servlet-class>Controllers.ActualizaCantidadItemSolicitudPresupuesto</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertaValoracionCompra</servlet-name>
+        <servlet-class>Controllers.InsertaValoracionCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetPerfilImage</servlet-name>
         <url-pattern>/GetPerfilImage</url-pattern>
@@ -79,6 +99,26 @@
     <servlet-mapping>
         <servlet-name>EliminaItemCarrito</servlet-name>
         <url-pattern>/EliminaItemCarrito</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GeneraSolicitudPresupuesto</servlet-name>
+        <url-pattern>/GeneraSolicitudPresupuesto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaPrecioItemSolicitudPresupuesto</servlet-name>
+        <url-pattern>/ActualizaPrecioItemSolicitudPresupuesto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaEstatusSolicitudPresupuesto</servlet-name>
+        <url-pattern>/ActualizaEstatusSolicitudPresupuesto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizaCantidadItemSolicitudPresupuesto</servlet-name>
+        <url-pattern>/ActualizaCantidadItemSolicitudPresupuesto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertaValoracionCompra</servlet-name>
+        <url-pattern>/InsertaValoracionCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>

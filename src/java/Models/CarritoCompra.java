@@ -167,7 +167,11 @@ public class CarritoCompra {
             con = dS.getConnection();
             statement = con.prepareCall("call borraItemCarrito(?,?);");
             statement.setInt(1, idUsuario);
-            statement.setInt(2, idArticulo);
+            if(idArticulo != 0) {
+                statement.setInt(2, idArticulo);
+            } else {
+                statement.setNull(2, Types.NULL);
+            }
             if (statement.executeUpdate() > 0) {
                 rS = true;
             }
@@ -217,7 +221,7 @@ public class CarritoCompra {
                         rS.getInt("idArticulo"),
                         rS.getInt("cantidad"),
                         rS.getInt("disponible"),
-                        Articulo.consultaArticulos(-1, rS.getInt("idArticulo")).get(0));
+                        Articulo.consultaArticulos(-1, rS.getInt("idArticulo"), "", "", "").get(0));
                 carrito.add(item);
             }
         } catch (SQLException ex) {

@@ -46,6 +46,8 @@ public class AgregarItemCarrito extends HttpServlet {
         if (errors.isEmpty()) {
             if(CarritoCompra.insertaItemCarrito(Integer.parseInt(request.getParameter("idUsuario")), Integer.parseInt(request.getParameter("idArticulo")), cantidad)) {
                 response.sendRedirect("carritoCompras.jsp");
+            } else {
+                response.sendRedirect("carritoCompras.jsp");
             }
         } else {
             request.setAttribute("errors", errors);

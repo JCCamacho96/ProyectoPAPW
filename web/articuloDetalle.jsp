@@ -1,3 +1,4 @@
+<%@page import="Models.ValoracionCompra"%>
 <%@page import="Models.Articulo"%>
 <%@page import="Models.Categoria"%>
 <%@page import="java.util.List"%>
@@ -9,7 +10,7 @@
         <link type="image/x-icon" href="img/favicon.ico" rel="shorcut icon"/>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Inicio</title>
+        <title>Detalle del Producto</title>
 
         <!-- Bootstrap -->
         <link href="./vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +38,7 @@
         <%
             List<Categoria> categorias = Categoria.consultaCategorias();
             Articulo articulo = null;
-            articulo = Articulo.consultaArticulos(1, Integer.parseInt(request.getParameter("idArticulo"))).get(0);
+            articulo = Articulo.consultaArticulos(1, Integer.parseInt(request.getParameter("idArticulo")), "", "", "").get(0);
         %>
         <div class="container body">
             <div class="main_container">
@@ -100,7 +101,7 @@
                                             <div class="item form-group" style="display: none;">
                                                 <label class="col-form-label col-md-3 col-sm-3 label-align" for="idUsuario">ID</label>
                                                 <div class="col-md-6 col-sm-6 ">
-                                                    <input type="text" id="idUsuario" name="idUsuario" class="form-control" value="<%= session.getAttribute("idUsuario") %>">
+                                                    <input type="text" id="idUsuario" name="idUsuario" class="form-control" value="<%= session.getAttribute("idUsuario")%>">
                                                 </div>
                                             </div>
                                             <div class="item form-group">
@@ -119,10 +120,39 @@
                                     <%
                                         }
                                     %>
+                                    <%
+                                        if (articulo.getValoraciones() != null) {
+                                    %>
+                                    <div class="x_panel">
+                                        <div class="x_title">
+                                            <h2>Valoraciones</h2>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="x_content">
+                                            <ul class="list-unstyled msg_list">
+                                                <%
+                                                    for (ValoracionCompra valoracion : articulo.getValoraciones()) {
+                                                %>
+                                                <li>
+                                                    <a style="width: 100%">
+                                                        <div class="col-md-12">
+                                                            <h4>Usuario: <%= valoracion.getNombreUsuario()%></h4>
+                                                            <h3>"<%= valoracion.getComentarios()%>"</h4>
+                                                            <h3>Calificación: <%= valoracion.getCalificacion()%>/5</h4>
+                                                            <h4>Fecha: <%= valoracion.getFecha()%></h4>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <%
+                                                    }
+                                                %>
+                                            </ul>
+                                        </div>
+                                    </div>                                            
+                                    <%
+                                        }
+                                    %>
                                 </div>
-
-
-
                             </div>
                         </div>
                         <%

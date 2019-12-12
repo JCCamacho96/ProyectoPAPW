@@ -42,6 +42,7 @@
                         session.setAttribute("user", usuario.getUser());
                         session.setAttribute("password", usuario.getPassword());
                         session.setAttribute("idUsuario", usuario.getIdUsuario());
+                        //Crear Cookies
                         if (sesion) {
                             Cookie cookie = new Cookie("user", usuario.getUser());
                             cookie.setMaxAge(60 * 60 * 24 * 365 * 10);
@@ -76,6 +77,7 @@
                 String password = null;
                 Cookie[] cookies = request.getCookies();
 
+                //Valida Cookies
                 if (cookies != null) {
                     for (Cookie cookie : cookies) {
                         if (cookie.getName().equals("user")) {

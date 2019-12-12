@@ -10,7 +10,7 @@
         <link type="image/x-icon" href="img/favicon.ico" rel="shorcut icon"/>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detalle Articulo</title>
+        <title>Registrar Articulo</title>
 
         <!-- Bootstrap -->
         <link href="./vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,10 +38,10 @@
     <body class="nav-md">
         <%
             List<Categoria> categorias = Categoria.consultaCategorias();
-            List<Articulo> articulos = Articulo.consultaArticulos(-1, 0);
+            List<Articulo> articulos = Articulo.consultaArticulos(-1, 0, "", "", "");
             Articulo articuloEdit = null;
             if (request.getParameter("idArticulo") != null && Integer.parseInt(request.getParameter("idArticulo")) != 0) {
-                articuloEdit = Articulo.consultaArticulos(-1, Integer.parseInt(request.getParameter("idArticulo"))).get(0);
+                articuloEdit = Articulo.consultaArticulos(-1, Integer.parseInt(request.getParameter("idArticulo")), "", "", "").get(0);
             }
         %>
         <div class="container body">

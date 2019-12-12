@@ -36,6 +36,7 @@ public class Articulo {
     private byte[] video;
     private String fecha;
     private int active;
+    private List<ValoracionCompra> valoraciones;
 
     public int getIdArticulo() {
         return idArticulo;
@@ -125,6 +126,14 @@ public class Articulo {
         this.active = active;
     }
 
+    public List<ValoracionCompra> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(List<ValoracionCompra> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+
     public Articulo() {
     }
 
@@ -140,6 +149,21 @@ public class Articulo {
         this.video = video;
         this.fecha = fecha;
         this.active = active;
+    }
+
+    public Articulo(int idArticulo, String nombre, String descripcion, String categoria, int unidades, byte[] imagen1, byte[] imagen2, byte[] imagen3, byte[] video, String fecha, int active, List<ValoracionCompra> valoraciones) {
+        this.idArticulo = idArticulo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.unidades = unidades;
+        this.imagen1 = imagen1;
+        this.imagen2 = imagen2;
+        this.imagen3 = imagen3;
+        this.video = video;
+        this.fecha = fecha;
+        this.active = active;
+        this.valoraciones = valoraciones;
     }
 
     public static boolean insertaArticulo(String nombre, String descripcion, String categoria, int unidades, InputStream imagen1, InputStream imagen2, InputStream imagen3, InputStream video, int active) {
@@ -280,7 +304,7 @@ public class Articulo {
         return rS;
     }
 
-    public static List<Articulo> consultaArticulos(int active, int idArticulo) {
+    public static List<Articulo> consultaArticulos(int active, int idArticulo, String idCategoria, String nombre, String descripcion) {
         List<Articulo> articulos = new ArrayList<Articulo>();
         InitialContext iC = null;
         Context context = null;
@@ -296,12 +320,27 @@ public class Articulo {
             con = dS.getConnection();
 
             //Creamos el llamado
-            statement = con.prepareCall("call consultaArticulo(?,?)");
+            statement = con.prepareCall("call consultaArticulo(?,?,?,?,?)");
             statement.setInt(1, active);
             if (idArticulo == 0) {
                 statement.setNull(2, Types.NULL);
             } else {
                 statement.setInt(2, idArticulo);
+            }
+            if(idCategoria.equals("")) {
+                statement.setNull(3, Types.NULL);
+            } else {
+                statement.setString(3, idCategoria);
+            }
+            if(nombre.equals("")) {
+                statement.setNull(4, Types.NULL);
+            } else {
+                statement.setString(4, nombre);
+            }
+            if(descripcion.equals("")) {
+                statement.setNull(5, Types.NULL);
+            } else {
+                statement.setString(5, descripcion);
             }
             rS = statement.executeQuery();
 
@@ -318,7 +357,8 @@ public class Articulo {
                         rS.getBytes("imagen3"),
                         rS.getBytes("video"),
                         rS.getString("fecha"),
-                        rS.getInt("active"));
+                        rS.getInt("active"),
+                        ValoracionCompra.consultaValoracionCompra(0, rS.getInt("idArticulo")));
                 articulos.add(articulo);
             }
         } catch (SQLException ex) {
